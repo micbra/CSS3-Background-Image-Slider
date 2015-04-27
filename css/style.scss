@@ -1,0 +1,182 @@
+$time_per_image: 6; //time in seconds for each image to display
+$image_count: 6; //number of images
+$fade_to: #000; //hexadecimal color value to fade to (also color of the circle)
+$text_color: #fff; //hexadecimal color value to set as text color
+$circle_radius: 150; //radius of circle in pixels
+
+// DON'T CHANGE ANYTHING BELOW THIS LINE!!!
+@import url(http://fonts.googleapis.com/css?family=Playfair+Display:700italic);
+// CSS reset
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+	margin:0;
+	padding:0;
+}
+html,body {
+	margin:0;
+	padding:0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+fieldset,img { 
+	border:0;
+}
+input{
+	border:1px solid #b0b0b0;
+	padding:3px 5px 4px;
+	color:#979797;
+	width:190px;
+}
+address,caption,cite,code,dfn,th,var {
+	font-style:normal;
+	font-weight:normal;
+}
+ol,ul {
+	list-style:none;
+}
+caption,th {
+	text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size:100%;
+	font-weight:normal;
+}
+q:before,q:after {
+	content:'';
+}
+abbr,acronym { border:0;
+}
+
+// General Style
+body{
+	background: $fade_to;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.ie7 body{
+	overflow:hidden;
+}
+.circle{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: #{($circle_radius * 2)}px;
+	height: #{($circle_radius * 2)}px;
+	margin: -#{$circle_radius}px 0 0 -#{$circle_radius}px;
+	border-radius: 50%;
+	background-color: $fade_to;
+
+	span {
+		font-family: 'Playfair Display', serif;
+		color: #fff;
+		font-size: 2em;
+		position: absolute;
+		top: 43%;
+		text-align: center;
+		width: 100%;
+	}
+}
+
+// Mixins
+// keyframes mixin
+@mixin keyframes($name) {
+	@-webkit-keyframes #{$name} {
+		@content; 
+	}
+	@-moz-keyframes #{$name} {
+		@content;
+	}
+	@-ms-keyframes #{$name} {
+		@content;
+	}
+	@keyframes #{$name} {
+		@content;
+	} 
+}
+
+// animation mixin
+@mixin animation($name, $duration, $timing, $iteration, $delay) {
+	-webkit-animation: $name $duration $timing $iteration $delay;
+	-moz-animation: $name $duration $timing $iteration $delay; 
+	-ms-animation: $name $duration $timing $iteration $delay; 
+	animation: $name $duration $timing $iteration $delay;  
+}
+
+// animation delay mixin
+@mixin animation-delay($duration) {
+	-webkit-animation-delay: $duration;
+	-moz-animation-delay: $duration; 
+	-ms-animation-delay: $duration; 
+	animation-delay: $duration;  
+}
+
+// animation timing function mixin
+@mixin animation-timing-function($timing) {
+	-webkit-animation-timing-function: $timing;
+	-moz-animation-timing-function: $timing; 
+	-ms-animation-timing-function: $timing; 
+	animation-timing-function: $timing;  
+}
+
+// Slideshow
+.slideshow,
+.slideshow:after { 
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	z-index: 0; 
+}
+.slideshow:after { 
+	content: '';
+	background: transparent url(../images/pattern.png) repeat top left; 
+}
+.slideshow li span { 
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	color: transparent;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-repeat: none;
+	opacity: 0;
+	z-index: 0;
+	-webkit-backface-visibility: hidden;
+	@include animation(imageAnimation, #{($time_per_image * $image_count)}s, linear, infinite, 0s);
+}
+
+@for $i from 1 through $image_count {
+	.slideshow li:nth-child(#{$i}) span { 
+		background-image: url(../images/#{$i}.jpg);
+		@include animation-delay(#{(($i - 1) * $time_per_image)}s);
+	}
+}
+
+@include keyframes(imageAnimation) {
+	0% { 
+		opacity: 0;
+		@include animation-timing-function(ease-in);
+	}
+	#{($image_count / ($image_count * $time_per_image) * 50)}% { 
+		opacity: 1;
+		@include animation-timing-function(ease-out);
+	}
+	#{($image_count / ($image_count * $time_per_image) * 100)}% { 
+		opacity: 1 
+	}
+	25% { 
+		opacity: 0 
+	}
+	100% { 
+		opacity: 0 
+	}
+}
+
+// fallback
+.no-cssanimations .cb-slideshow li span{
+	opacity: 1;
+}

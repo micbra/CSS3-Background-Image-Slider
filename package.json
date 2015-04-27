@@ -1,0 +1,11 @@
+{
+  "name": "css3-backgroundimage-slider",
+  "version": "1.0.0",
+  "description": "Michael Braunegger",
+  "author": "Michael Braunegger",
+  "license": "All rights reserved",
+  "devDependencies": {
+    "grunt": "~0.4.3",
+    "grunt-contrib-sass": "~0.7.3"
+  }
+}
