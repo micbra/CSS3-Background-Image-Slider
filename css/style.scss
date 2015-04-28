@@ -71,10 +71,11 @@ body{
 		font-family: 'Playfair Display', serif;
 		color: #fff;
 		font-size: 2em;
-		position: absolute;
-		top: 43%;
-		text-align: center;
 		width: 100%;
+  		display: inline-block;
+		text-align: center;
+		vertical-align: middle;
+		line-height: #{($circle_radius * 2)}px; 
 	}
 }
 
