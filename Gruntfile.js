@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 					'css/style.css': ['css/style.scss']
 				}
 			}
-		}
+		}});
 
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	
