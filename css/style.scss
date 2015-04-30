@@ -1,11 +1,12 @@
 $time_per_image: 6; //time in seconds for each image to display
-$image_count: 6; //number of images
-$fade_to: #000; //hexadecimal color value to fade to (also color of the circle)
+$image_count: 17; //number of images
+$fade_to: rgba(0,0,0,0.8); //hexadecimal color value to fade to (also color of the circle)
+$fade_delay: 25; //speed for the fade effect. Integer between 0 and 100 (0 = freakin' fast, 100 = bloody slow)
 $text_color: #fff; //hexadecimal color value to set as text color
 $circle_radius: 150; //radius of circle in pixels
 
 // DON'T CHANGE ANYTHING BELOW THIS LINE!!!
-@import url(http://fonts.googleapis.com/css?family=Playfair+Display:700italic);
+@import url(http://fonts.googleapis.com/css?family=Muli:300);
 // CSS reset
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
 	margin:0;
@@ -68,7 +69,7 @@ body{
 	background-color: $fade_to;
 
 	span {
-		font-family: 'Playfair Display', serif;
+		font-family: 'Muli';
 		color: #fff;
 		font-size: 2em;
 		width: 100%;
@@ -147,7 +148,7 @@ body{
 	opacity: 0;
 	z-index: 0;
 	-webkit-backface-visibility: hidden;
-	@include animation(imageAnimation, #{($time_per_image * $image_count)}s, linear, infinite, 0s);
+	@include animation(imageAnimation, #{($time_per_image * $image_count)}s, ease-in-out, infinite, 0s);
 }
 
 @for $i from 1 through $image_count {
@@ -162,11 +163,11 @@ body{
 		opacity: 0;
 		@include animation-timing-function(ease-in);
 	}
-	#{($image_count / ($image_count * $time_per_image) * 50)}% { 
+	#{($fade_delay / 8)}% { 
 		opacity: 1;
 		@include animation-timing-function(ease-out);
 	}
-	#{($image_count / ($image_count * $time_per_image) * 100)}% { 
+	#{($fade_delay / 4)}% { 
 		opacity: 1 
 	}
 	25% { 
