@@ -14,11 +14,11 @@ Your background images need to follow some specific conventions. Make sure that:
 
 ## Configuration
 When you open the `css/style.scss` file you have some configuration options in line 1-5:
-$time_per_image: time in seconds for each image to display
-$image_count: total number of images in your `images` folder
-$fade_to: hexadecimal, rgb/rgba or hsl color value to fade to (also color of the circle in the center of your page)
-$text_color: hexadecimal, rgb/rgba or hsl color value to set as text color
-$circle_radius: radius of circle in pixels
+* `$time_per_image`: time in seconds for each image to display
+* `$image_count`: total number of images in your `images` folder
+* `$fade_to`: hexadecimal, rgb/rgba or hsl color value to fade to (also color of the circle in the center of your page)
+* `$text_color`: hexadecimal, rgb/rgba or hsl color value to set as text color
+* `$circle_radius`: radius of circle in pixels
 
 ## Compilation
 To compile your SCSS file to good 'ol CSS you have multiple options:
